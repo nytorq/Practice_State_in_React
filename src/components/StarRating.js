@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+
+
 import React, { Component } from "react";
 import Star from './Star';
 
@@ -8,32 +11,45 @@ class StarRating extends Component {
     stars: [
       {
         id: 1,
-        class: 'unselected'
+        starState: false
       },{
         id: 2,
-        class: 'unselected'
+        starState: false
       },
       {
         id: 3,
-        class: 'unselected'
+        starState: false
       },
       {
         id: 4,
-        class: 'unselected'
+        starState: false
       },
       {
         id: 5,
-        class: 'unselected'
+        starState: false
       },
     ]
   };
 
   // Write a function that returns 5 Star components
-  starRenderer = () => {
-    console.log('test!');
-  };
+
+  // starRenderer = () => {
+  //   console.log('test!');
+  // };
 
   // Write an event handler that updates the rating state.
+  handleStarClick = (index) => {
+    let star = this.state.stars[index].id;
+    console.log("Hey, you just clicked star " + star + ".");
+    for (let i=index ; i >=0 ; i--) {
+      console.log("Currently on position " + i + " in state.stars.");
+      console.log(this.state);
+      this.setState( prevState => {
+        starState: prevState.stars[index].starState = !prevState.stars[index].starState
+      })
+    }
+  };
+
   // Pass the function to a Star component via props
 
 
@@ -44,13 +60,11 @@ class StarRating extends Component {
         {this.state.stars.map((star, index) =>
           <Star
             star={star.id}
-            class={star.class}
+            class={star.starState}
             index={index}
+            starClick={this.handleStarClick}
           />
         )}
-
-
-
       </ul>
     );
   }

@@ -100,6 +100,10 @@ img {
   fill: #3658a25f;
 }
 
+/* .course--stars .star:hover {
+  fill: #3658a2bf
+} */
+
 .course--stars .selected .star {
   fill: #2d4f9a;
 }
