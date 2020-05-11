@@ -8,47 +8,41 @@ class StarRating extends Component {
 
   // Initialize a 'rating' state
   state = {
-    stars: [
-      {
-        id: 1,
-        starState: false
-      },{
-        id: 2,
-        starState: false
-      },
-      {
-        id: 3,
-        starState: false
-      },
-      {
-        id: 4,
-        starState: false
-      },
-      {
-        id: 5,
-        starState: false
-      },
-    ]
+    rating: 0
   };
 
   // Write a function that returns 5 Star components
 
-  // starRenderer = () => {
-  //   console.log('test!');
-  // };
+  renderStars = () => {
+    let stars = [];
+    let maxStars = 5;
+
+    for (let i = 0 ; i < maxStars ; i++) {
+      stars.push(
+        <Star
+          key={i}
+          setRating={ () => this.handleSetRating(i + 1) }
+          isSelected={this.state.rating > i}
+        />
+      );
+    }
+
+    return stars;
+  }
 
   // Write an event handler that updates the rating state.
-  handleStarClick = (index) => {
-    let star = this.state.stars[index].id;
-    console.log("Hey, you just clicked star " + star + ".");
-    for (let i=index ; i >=0 ; i--) {
-      console.log("Currently on position " + i + " in state.stars.");
-      console.log(this.state);
-      this.setState( prevState => {
-        starState: prevState.stars[index].starState = !prevState.stars[index].starState
-      })
+
+  handleStarRating = (key) => {
+    console.log("You've clicked star " + key)
+  }
+
+  handleSetRating = (rating) => {
+    if (this.state.rating === rating) {
+      this.setState({rating: 0});
+    } else {
+        this.setState({rating})
     }
-  };
+  }
 
   // Pass the function to a Star component via props
 
@@ -56,15 +50,7 @@ class StarRating extends Component {
   render() {
     return (
       <ul className="course--stars">
-        {/* Render the Star components */}
-        {this.state.stars.map((star, index) =>
-          <Star
-            star={star.id}
-            class={star.starState}
-            index={index}
-            starClick={this.handleStarClick}
-          />
-        )}
+        {this.renderStars()}
       </ul>
     );
   }
